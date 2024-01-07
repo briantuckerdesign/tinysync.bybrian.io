@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css">
+    <meta charset="UTF-8">
+    <meta name="author" content="Brian Tucker, https://www.briantucker.design">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Airtable to Webflow CMS sync via CLI.">
+    <meta property="og:title" content="tinySync">
+    <meta property="og:description" content="Airtable to Webflow CMS sync via CLI. Free & open source. Coming soon.">
+    <meta property="og:url" content="https://tinysync.madebybrian.io">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="tinySync">
+    <link rel="canonical" href="https://tinysync.madebybrian.io">
+    <meta name="keywords"
+        content="tinySync, Airtable, Webflow, sync, CLI, open source, data synchronization, command line tool, web development">
+
+    <title>tinySync - Airtable → Webflow CMS sync via CLI</title>
+    <style>
+        body {
+            background: #0F0D17;
+            color: #FFF;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.3;
+            min-height: 100dvh;
+        }
+
+        *:not(.github-icon),
+        *:not(.github-icon) * {
+            transition-property: all;
+            transition-duration: 0.2s;
+            transition-timing-function: ease-in-out;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 800;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        #wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #hero {
+            position: relative;
+            display: flex;
+            width: 100%;
+            max-width: 64rem;
+            min-height: 36rem;
+            align-items: flex-start;
+            margin-bottom: 4rem;
+        }
+
+        .hero_content {
+            display: flex;
+            padding: 1.5rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2.5rem;
+            flex: 1 0 0;
+            align-self: stretch;
+        }
+
+        .hero_logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #FFF;
+            font-size: 2.25rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .github-icon {
+            width: 2rem;
+            height: 2rem;
+            color: lime;
+            display: block;
+            transition: 0.1s ease all;
+        }
+
+        .github-icon:hover {
+            color: magenta;
+        }
+
+
+        .hero_heading {
+            color: #000;
+            font-family: JetBrains Mono;
+            font-size: 1.625rem;
+            font-style: normal;
+            font-weight: 800;
+            line-height: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            gap: 0.25rem;
+            margin: 0;
+            /* 100% */
+        }
+
+        .hero_heading-wrapper .highlight {
+            display: flex;
+            padding: 0.25rem;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            background: #FFF;
+        }
+
+        .hero_features {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: left;
+            align-self: stretch;
+            /* nowrap text */
+            white-space: nowrap;
+        }
+
+        .terminal_wrapper {
+            display: flex;
+            padding: 1.5rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1 0 0;
+            align-self: stretch;
+        }
+
+        #terminal {
+            display: flex;
+            width: 24rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #2C3047;
+            box-shadow: 0px 0px 200px 0px #003E58;
+        }
+
+        .terminal_header {
+            display: flex;
+            padding: 0.5rem;
+            gap: 2rem;
+            align-items: center;
+            align-self: stretch;
+            border-bottom: 1px solid #2C3047;
+            background: #151722;
+        }
+
+        .terminal_dots {
+            letter-spacing: 0.5rem;
+            color: #2C3047;
+            font-size: 0.875rem;
+        }
+
+        .terminal_content {
+            display: flex;
+            min-height: 400px;
+            padding: 1.5rem;
+            ;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            align-self: stretch;
+            background: #0F0D17;
+        }
+
+        #content {
+            display: flex;
+            padding: 22px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 44px;
+            align-self: stretch;
+        }
+
+        .item {
+            display: flex;
+            max-width: 24rem;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .item h2 {
+            font-size: 1.125rem;
+            font-style: normal;
+            font-weight: 800;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .green {
+            color: #00FF00;
+        }
+
+        .cyan {
+            color: #00FFFF;
+        }
+
+        .yellow {
+            color: #FFFF00;
+        }
+
+        .magenta {
+            color: #FF00FF;
+        }
+
+        .gray {
+            color: #B2B2B2;
+        }
+
+        .bold {
+            font-weight: 800;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .tiny {
+            font-size: .75rem;
+        }
+
+        .hero_gradient {
+            display: none;
+        }
+
+        .hero_background {
+            display: none;
+        }
+
+        .button-inactive {
+            display: block;
+            padding: .75rem 1.5rem;
+            border: solid 1px rgba(80, 80, 80, 1);
+            color: rgba(255, 255, 255, 0.75);
+            cursor: not-allowed;
+        }
+
+        footer {
+            padding-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            #hero {
+                overflow: hidden;
+                flex-direction: column;
+                min-height: 40rem;
+                flex-flow: column-reverse;
+            }
+
+            .hero_content {
+                position: relative;
+                z-index: 2;
+            }
+
+            #terminal {
+                position: absolute;
+                top: 1rem;
+                z-index: 0;
+                justify-content: flex-start;
+                align-items: flex-start;
+                border-radius: 0.5rem;
+                height: 20rem
+            }
+
+            .terminal_content {
+                justify-content: flex-start;
+                overflow: hidden;
+            }
+
+            .hero_gradient {
+                display: block;
+                width: 100dvw;
+                /* 20 rem total height */
+                height: 16rem;
+                top: 4rem;
+                position: absolute;
+                left: 0;
+                z-index: 1;
+                background: linear-gradient(180deg, rgb(27, 29, 40, 0.00) 0%, #0F0D17 100%);
+            }
+
+            .hero_background {
+                background-color: #0F0D17;
+                top: 20rem;
+                height: 100%;
+                position: absolute;
+                width: 100dvw;
+                z-index: 1;
+                display: block;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header id="hero">
+            <div class="hero_content">
+                <div class="hero_logo">
+                    tinySync
+                    <a href="https://github.com/briantuckerdesign" target="_blank" class="github-icon"
+                        rel="noopener noreferrer" title="Visit Github Repository">
+                        <svg alt="GitHub" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%"
+                            preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                            <title>GitHub Link</title>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974c0 4.406 2.857 8.145 6.821 9.465c.499.09.679-.217.679-.481c0-.237-.008-.865-.011-1.696c-2.775.602-3.361-1.338-3.361-1.338c-.452-1.152-1.107-1.459-1.107-1.459c-.905-.619.069-.605.069-.605c1.002.07 1.527 1.028 1.527 1.028c.89 1.524 2.336 1.084 2.902.829c.091-.645.351-1.085.635-1.334c-2.214-.251-4.542-1.107-4.542-4.93c0-1.087.389-1.979 1.024-2.675c-.101-.253-.446-1.268.099-2.64c0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336a9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021c.545 1.372.203 2.387.099 2.64c.64.696 1.024 1.587 1.024 2.675c0 3.833-2.33 4.675-4.552 4.922c.355.308.675.916.675 1.846c0 1.334-.012 2.41-.012 2.737c0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974C22 6.465 17.535 2 12.026 2z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </a>
+                </div><!--hero_logo-->
+                <div class="hero_heading-wrapper">
+                    <h1 class="hero_heading">
+                        <span class="highlight">Airtable
+                            <span class="green bold">→</span>
+                            Webflow</span>
+                        <span class="highlight">sync via CLI</span>
+                    </h1>
+                </div><!--hero_heading-wrapper-->
+                <div class="hero_features">
+                    <p>&nbsp;-&nbsp;One-directional manual sync</p>
+                    <p>&nbsp;-&nbsp;Command-line interface</p>
+                    <p>&nbsp;-&nbsp;<span class="green bold italic">Free</span> & open source</p>
+                </div><!--hero_features-->
+                <div class="button-inactive">
+                    Coming soon
+                </div>
+            </div><!--hero_content-->
+            <div class="hero_gradient"></div>
+            <div class="hero_background"></div>
+            <aside class="terminal_wrapper">
+                <div id="terminal">
+                    <div class="terminal_header">
+                        <div class="terminal_dots">⬤⬤⬤</div>
+                        TinySync v1.0.0
+                    </div>
+                    <div class="terminal_content">
+                        <p>npm start</p>
+                        <p></p>
+                        <p class="gray">----------------------------------- </p>
+                        <pre class="green" alt="TinySync in ASCII art">
+ _____ _         _____             
+|_   _|_|___ _ _|   __|_ _ ___ ___ 
+  | | | |   | | |__   | | |   |  _|
+  |_| |_|_|_|_  |_____|_  |_|_|___|
+            |___|     |___|        
+</pre>
+                        <p></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by Brian</p>
+                        <p></p>
+                        <p></p>
+                        <p class="bold"><span class="cyan bold">?</span> What would you like to do?</p>
+                        <div>
+                            <p class="cyan"><span class="bold">›</span>
+                                <span class="underline">View saved syncs</span>
+                            </p>
+                            <p>&nbsp; Create new sync</p>
+                            <p>&nbsp; Exit</p>
+                        </div>
+                    </div><!--terminal_content-->
+            </aside><!--terminal-->
+        </header><!--hero-->
+        <main id="content">
+            <div class="item">
+                <p class="gray">----------------------------------------</p>
+                <h2>Features</h2>
+                <div>
+                    <p>&nbsp;-&nbsp;One-directional manual sync:<br>
+                        &nbsp;&nbsp;&nbsp;<span class="italic">Airtable → Webflow</span></p>
+                    <p>&nbsp;-&nbsp;Granular sync control</p>
+                    <p>&nbsp;-&nbsp;All field types supported</p>
+                    <p>&nbsp;-&nbsp;No record limits<sup>*</sup></p>
+                </div>
+                <span class="gray tiny"><sup>*</sup> We are all beholden to the limits of Airtable/Webflow/APIs
+                    🧘</span>
+            </div><!--item-->
+            <div class="item">
+                <p class="gray">----------------------------------------</p>
+                <h2>Ok, but actually... what is it?</h2>
+                <p>tinySync is a nodeJS application that runs locally
+                    through a command-line interface.</p>
+                <p>It’s
+                    <span class="magenta bold italic">fun</span> and
+                    <span class="yellow bold italic">user-friendly</span>,
+                    but you have to use your keyboard 😱. Stay strong, mice-lovers.
+                </p>
+            </div><!--item-->
+            <div class="item">
+                <p class="gray">----------------------------------------</p>
+                <h2>Who is it for?</h2>
+                <p>tinySync is for people who are cheap, not afraid of CLIs, and want to use Airtable as a headless
+                    Webflow CMS.</p>
+                <p>I know... a huge audience, right?</p>
+            </div><!--item-->
+            <div class="item">
+                <p class="gray">----------------------------------------</p>
+                <h2>How does this compare to
+                    <a href="https://www.whalesync.com/" target="_blank" rel="noopener noreferrer">WhaleSync</a>,
+                    <a href="https://www.flowmonk.com/" target="_blank" rel="noopener noreferrer">Flowmonk</a>, or
+                    <a href="https://www.powerimporter.com/" target="_blank"
+                        rel="noopener noreferrer">PowerImporter</a>?
+                </h2>
+                <p>Well for starters, they have features like...</p>
+                <div>
+                    <p>&nbsp;🎨&nbsp;GUI<br>
+                    <p>&nbsp;🏃&nbsp;Automatic syncing</p>
+                    <p>&nbsp;🔄&nbsp;Bi-directional syncing</p>
+                    <p>&nbsp;🛟&nbsp;Customer support</p>
+                </div>
+                <p>They are geared towards business use cases like programmatic SEO. If you need those features, check
+                    them out!</p>
+            </div><!--item-->
+            <div class="item">
+                <p class="gray">----------------------------------------</p>
+            </div><!--item-->
+        </main><!--content-->
+        <footer>
+            Made with ❤️ by <a href="https://www.briantucker.design" target="_blank" rel="noopener noreferrer">Brian</a>
+        </footer>
+    </div><!--wrapper-->
+</body>
+
+</html>
