@@ -29,8 +29,7 @@
             min-height: 100dvh;
         }
 
-        *:not(.github-icon),
-        *:not(.github-icon) * {
+        a {
             transition-property: all;
             transition-duration: 0.2s;
             transition-timing-function: ease-in-out;
@@ -93,18 +92,17 @@
             height: 2rem;
             color: lime;
             display: block;
-            transition: 0.1s ease all;
         }
 
         .github-icon:hover {
-            color: magenta;
+            color: green;
         }
 
 
         .hero_heading {
             color: #000;
             font-family: JetBrains Mono;
-            font-size: 1.625rem;
+            font-size: 2rem;
             font-style: normal;
             font-weight: 800;
             line-height: 1;
@@ -177,7 +175,7 @@
 
         .terminal_content {
             display: flex;
-            min-height: 400px;
+            min-height: 25rem;
             padding: 1.5rem;
             ;
             flex-direction: column;
@@ -190,11 +188,11 @@
 
         #content {
             display: flex;
-            padding: 22px;
+            padding: 1.5rempx;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 44px;
+            gap: 2.5rempx;
             align-self: stretch;
         }
 
@@ -272,6 +270,11 @@
         }
 
         @media (max-width: 768px) {
+
+            .hero_heading {
+                font-size: 2rem;
+            }
+
             #hero {
                 overflow: hidden;
                 flex-direction: column;
@@ -280,6 +283,7 @@
             }
 
             .hero_content {
+                padding: 0.5rem;
                 position: relative;
                 z-index: 2;
             }
@@ -321,6 +325,36 @@
                 display: block;
             }
 
+        }
+
+        @media (max-width: 480px) {
+            .hero_heading {
+                font-size: 1.75rem;
+            }
+
+            body {
+                font-size: .875rem;
+
+            }
+
+            #terminal {
+                transform: scale(0.9);
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero_heading {
+                font-size: 1.25rem;
+            }
+
+            body {
+                font-size: .75rem;
+
+            }
+
+            #terminal {
+                transform: scale(0.75);
+            }
         }
     </style>
 </head>
