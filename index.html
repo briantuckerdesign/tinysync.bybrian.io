@@ -267,6 +267,27 @@
             cursor: not-allowed;
         }
 
+        .button {
+            display: block;
+            padding: .75rem 1.5rem;
+            border: solid 1px lime;
+            color: lime;
+            transition: background 0.15s ease-in-out;
+        }
+
+        .button a,
+        .button a:hover,
+        .button a:active,
+        .button a:visited {
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: lime;
+            color: black;
+        }
+
+
         footer {
             padding-bottom: 2rem;
         }
@@ -367,8 +388,8 @@
             <div class="hero_content">
                 <div class="hero_logo">
                     tinySync
-                    <a href="https://github.com/briantuckerdesign" target="_blank" class="github-icon"
-                        rel="noopener noreferrer" title="Visit Github Repository">
+                    <a href="https://github.com/briantuckerdesign/tinySync/tree/main" target="_blank"
+                        class="github-icon" rel="noopener noreferrer" title="Visit Github Repository">
                         <svg alt="GitHub" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%"
                             preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
@@ -392,9 +413,12 @@
                     <p>&nbsp;-&nbsp;Command-line interface</p>
                     <p>&nbsp;-&nbsp;<span class="green bold italic">Free</span> & open source</p>
                 </div><!--hero_features-->
-                <div class="button-inactive">
-                    Coming soon
-                </div>
+                <a href="https://github.com/briantuckerdesign/tinySync" rel="noopener noreferrer"
+                    title="Visit Github Repository" style="text-decoration: none">
+                    <div class="button">
+                        Download on GitHub
+                    </div>
+                </a>
             </div><!--hero_content-->
             <div class="hero_gradient"></div>
             <div class="hero_background"></div>
@@ -402,7 +426,7 @@
                 <div id="terminal">
                     <div class="terminal_header">
                         <div class="terminal_dots">⬤⬤⬤</div>
-                        tinySync v1.0.0
+                        tinySync 1.0.0
                     </div>
                     <div class="terminal_content">
                         <p>npm start</p>
@@ -419,12 +443,11 @@
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by Brian</p>
                         <p></p>
                         <p></p>
-                        <p class="bold"><span class="cyan bold">?</span> What would you like to do?</p>
                         <div>
                             <p class="cyan"><span class="bold">›</span>
-                                <span class="underline">View saved syncs</span>
+                                <span class="underline">View syncs</span>
                             </p>
-                            <p>&nbsp; Create new sync</p>
+                            <p>&nbsp; Change password</p>
                             <p>&nbsp; Exit</p>
                         </div>
                     </div><!--terminal_content-->
